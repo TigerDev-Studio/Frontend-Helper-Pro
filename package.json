@@ -1,0 +1,305 @@
+{
+  "name": "frontend-helper-pro",
+  "displayName": "Frontend Helper Pro",
+  "description": "All-in-one VS Code extension for frontend developers: tag rename, spelling diagnostics, and CSS unit conversion.",
+  "version": "0.2.3",
+  "type": "module",
+  "publisher": "TigerDev1991",
+  "icon": "assets/icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TigerDev-Studio/frontend-helper-pro.git"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Linters",
+    "Formatters",
+    "Other"
+  ],
+  "keywords": [
+    "frontend",
+    "html",
+    "css",
+    "react",
+    "vue",
+    "angular",
+    "aem",
+    "spellcheck",
+    "auto rename tag"
+  ],
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:angular-html",
+    "onLanguage:xml",
+    "onLanguage:css",
+    "onLanguage:scss",
+    "onLanguage:sass",
+    "onLanguage:less",
+    "onLanguage:markdown",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact",
+    "onLanguage:vue",
+    "onCommand:frontend-helper-pro.convertCssUnit",
+    "onCommand:frontend-helper-pro.restartSpellCheck"
+  ],
+  "main": "./dist/extension.cjs",
+  "scripts": {
+    "compile": "tsc -p ./ && npm run bundle",
+    "bundle": "esbuild src/extension.ts --bundle --platform=node --format=cjs --external:vscode --minify --legal-comments=eof --outfile=dist/extension.cjs",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test dist/test/*.test.js",
+    "vscode:prepublish": "npm run compile"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "frontend-helper-pro.convertCssUnit",
+        "title": "Frontend Helper Pro: Convert CSS Unit"
+      },
+      {
+        "command": "frontend-helper-pro.restartSpellCheck",
+        "title": "Frontend Helper Pro: Restart Spell Check"
+      }
+    ],
+    "configuration": {
+      "title": "Frontend Helper Pro",
+      "properties": {
+        "frontendHelperPro.autoRename.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable automatic paired tag renaming."
+        },
+        "frontendHelperPro.autoRename.languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "html",
+            "angular-html",
+            "xml",
+            "javascriptreact",
+            "typescriptreact",
+            "vue"
+          ],
+          "description": "Language IDs where paired tag renaming is active."
+        },
+        "frontendHelperPro.spellCheck.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable spelling diagnostics for comments, strings, Markdown, and HTML text."
+        },
+        "frontendHelperPro.spellCheck.languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "html",
+            "angular-html",
+            "xml",
+            "markdown",
+            "javascript",
+            "typescript",
+            "javascriptreact",
+            "typescriptreact",
+            "vue",
+            "css",
+            "scss",
+            "sass",
+            "less"
+          ],
+          "description": "Language IDs where spelling diagnostics are active."
+        },
+        "frontendHelperPro.spellCheck.dictionary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Workspace words that should be treated as correctly spelled."
+        },
+        "frontendHelperPro.spellCheck.ignoreWords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "aem",
+            "api",
+            "css",
+            "html",
+            "jsx",
+            "tsx",
+            "uri",
+            "url",
+            "vscode"
+          ],
+          "description": "Words to ignore in spelling diagnostics."
+        },
+        "frontendHelperPro.spellCheck.flagWords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Words to always flag as spelling errors. Supports CSpell formats like \"teh->the\"."
+        },
+        "frontendHelperPro.spellCheck.locale": {
+          "type": "string",
+          "default": "en",
+          "description": "CSpell locale/language used for spell checking."
+        },
+        "frontendHelperPro.spellCheck.maxDiagnostics": {
+          "type": "number",
+          "default": 200,
+          "minimum": 1,
+          "maximum": 2000,
+          "description": "Maximum number of spelling diagnostics per document."
+        },
+        "frontendHelperPro.spellCheck.numSuggestions": {
+          "type": "number",
+          "default": 4,
+          "minimum": 0,
+          "maximum": 20,
+          "description": "Maximum number of spelling suggestions to generate per diagnostic."
+        },
+        "frontendHelperPro.spellCheck.minWordLength": {
+          "type": "number",
+          "default": 4,
+          "minimum": 1,
+          "maximum": 20,
+          "description": "Minimum word length checked by CSpell. Built-in flagged words can still be reported."
+        },
+        "frontendHelperPro.cssUnit.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable CSS unit conversion code actions and command."
+        },
+        "frontendHelperPro.cssUnit.languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "css",
+            "scss",
+            "sass",
+            "less",
+            "html",
+            "angular-html",
+            "vue",
+            "javascriptreact",
+            "typescriptreact"
+          ],
+          "description": "Language IDs where CSS unit conversion is active."
+        },
+        "frontendHelperPro.cssUnit.baseFontSize": {
+          "type": "number",
+          "default": 16,
+          "minimum": 1,
+          "description": "Base font size used for px and rem conversions."
+        },
+        "frontendHelperPro.cssUnit.viewportWidth": {
+          "type": "number",
+          "default": 375,
+          "minimum": 1,
+          "description": "Viewport width in px used for vw and rpx conversions."
+        },
+        "frontendHelperPro.cssUnit.rpxDesignWidth": {
+          "type": "number",
+          "default": 750,
+          "minimum": 1,
+          "description": "Design width in rpx used for rpx conversions."
+        },
+        "frontendHelperPro.cssUnit.precision": {
+          "type": "number",
+          "default": 4,
+          "minimum": 0,
+          "maximum": 8,
+          "description": "Maximum decimal places for generated unit conversions."
+        },
+        "frontendHelperPro.cssUnit.completion.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show CSS unit conversion suggestions while typing values such as 20px."
+        },
+        "frontendHelperPro.cssUnit.completion.targetUnits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "px",
+              "rem",
+              "rpx",
+              "vw"
+            ]
+          },
+          "default": [
+            "rem",
+            "rpx",
+            "vw"
+          ],
+          "description": "Target units shown as typing suggestions. The default makes 16px suggest 1rem, 32rpx, and 4.2667vw."
+        },
+        "frontendHelperPro.importCost.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inline import cost annotations for package imports."
+        },
+        "frontendHelperPro.importCost.languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "javascript",
+            "typescript",
+            "javascriptreact",
+            "typescriptreact",
+            "vue"
+          ],
+          "description": "Language IDs where import cost annotations are active."
+        },
+        "frontendHelperPro.importCost.showGzip": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show gzip size alongside minified import size."
+        },
+        "frontendHelperPro.importCost.maxImports": {
+          "type": "number",
+          "default": 25,
+          "minimum": 1,
+          "maximum": 100,
+          "description": "Maximum number of imports to annotate per document."
+        },
+        "frontendHelperPro.importCost.timeoutMs": {
+          "type": "number",
+          "default": 6000,
+          "minimum": 1000,
+          "maximum": 30000,
+          "description": "Network timeout in milliseconds for import cost lookups."
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/vscode": "^1.90.0",
+    "cspell-lib": "^9.8.0",
+    "esbuild": "^0.28.1",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "@cspell/dict-css": "^4.1.2",
+    "@cspell/dict-en_us": "^4.4.35",
+    "@cspell/dict-html": "^4.0.15",
+    "@cspell/dict-software-terms": "^5.2.2",
+    "@cspell/dict-typescript": "^3.2.3"
+  }
+}
