@@ -2,7 +2,7 @@
   "name": "frontend-helper-pro",
   "displayName": "Frontend Helper Pro",
   "description": "All-in-one VS Code extension for frontend developers: tag rename, spelling diagnostics, and CSS unit conversion.",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "type": "module",
   "publisher": "TigerDev1991",
   "icon": "assets/icon.png",
@@ -10,6 +10,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/TigerDev-Studio/frontend-helper-pro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TigerDev-Studio/My-Tools-Issues/issues"
   },
   "engines": {
     "vscode": "^1.90.0"
